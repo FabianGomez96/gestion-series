@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Series</title>
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+    <!-- Fuente de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <!-- Iconos de Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div class="crud-container">
+        <h1 class="title">Gestionar Series</h1>
+        <div class="add-box">
+            <button type="button" class="add-btn">
+                <i class="bi bi-plus-circle"></i>
+                Agregar Serie
+            </button>
+            <button type="button" class="add-btn">
+                <i class="bi bi-plus-circle"></i>
+                Agregar Temporada
+            </button>
+        </div>
+        <div id="informacion"></div>
+    </div>
+    <!--Modal Agregar Serie-->
+    <div class="modal" id="modalAgregar">
+        <div class="modal-dialog modal-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="btn-close"></span>
+                </div>
+                <div class="modal-body">
+                    <form method="post" id="registrarSerie" autocomplete="on">
+                        <div>
+                            <label for="name">Nombre</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <p>Géneros</p>
+                        <div>
+                            <div class="form-check">
+                                <input type="checkbox" value="Acción" name="genres[]" id="accion">
+                                <label for="accion">Acción</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" value="Comedia" name="genres[]" id="comedia">
+                                <label for="comedia">Comedia</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" value="Drama" name="genres[]" id="drama">
+                                <label for="drama">Drama</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" value="Fantasia" name="genres[]" id="fantasia">
+                                <label for="fantasia">Fantasia</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" value="Ficción" name="genres[]" id="ficcion">
+                                <label for="ficcion">Ficción</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" value="Romance" name="genres[]" id="romance">
+                                <label for="romance">Romance</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" value="Suspenso" name="genres[]" id="suspenso">
+                                <label for="suspenso">Suspenso</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" value="Terror" name="genres[]" id="terror">
+                                <label for="terror">Terror</label>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="production">Producción</label>
+                            <input type="text" class="form-control" id="production" name="production" required>
+                        </div>
+                        <div>
+                            <label for="urlImg">Url Imagen:</label>
+                            <textarea class="form-control" id="urlImg" name="urlImg" placeholder="https://www.themoviedb.org/ sitio para conseguir portadas" required></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" id="enviarDatos" class="btn btn-primary">Agregar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal confirmar eliminar -->
+    <div class="modal" id="confirmar">
+        <div class="modal-dialog modal-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="btn-close"></span>
+                </div>
+                <div class="modal-body">
+                    <div class="box-question">
+                        <i id="iconoError" class="bi bi-question-circle"></i>
+                        <p>Esta seguro de eliminar</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary">Cancelar</button>
+                    <button id="aceptar" type="button" class="btn btn-primary">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal ver temporadas -->
+    <div class="modal" id="verTemporadas">
+        <div class="modal-dialog modal-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="btn-close"></span>
+                </div>
+                <div class="modal-body" id="detallesTemporadas"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal agregar temporadas -->
+    <div class="modal" id="modalAgregarTemporadas">
+        <div class="modal-dialog modal-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="btn-close"></span>
+                </div>
+                <div class="modal-body">
+                    <form method="post" id="formularioTemporadas" autocomplete="on">
+                        <div>
+                            <label for="opcionesSerie">Serie</label>
+                            <select class="form-select" id="opcionesSerie" name="selectOptions" required></select>
+                        </div>
+                        <div>
+                            <label for="episodios">Episodios:</label>
+                            <input type="number" class="form-control" id="episodios" min="1" step="1" name="episodes" required>
+                        </div>
+                        <div>
+                            <label for="fechaEstreno">Fecha de estreno:</label>
+                            <input type="date" class="form-control" id="fechaEstreno" name="releaseDate" required>
+                        </div>
+                        <div>
+                            <label for="urlPortada">Url Imagen:</label>
+                            <textarea class="form-control" id="urlPortada" name="urlImg" placeholder="https://www.themoviedb.org/ sitio para conseguir portadas" required></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" id="enviarTemporada" class="btn btn-primary">Agregar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Notificaciones -->
+    <div class="notification"></div>
+    <script>
+        const userAgent = navigator.userAgent.toLowerCase();
+        console.log(userAgent);
+        if (/windows|macintosh|linux/.test(userAgent) && !/mobile/.test(userAgent)) document.body.classList.add("background-pc");
+    </script>
+    <script src="js/app.js" defer></script>
+</body>
+
+</html>
