@@ -11,8 +11,7 @@
 }
 
 body {
-    /* background-image: url(../assets/img/fondo.png); */
-    background-image: url('https://res.cloudinary.com/goku10/image/upload/v1727297129/fondo_nlx7bi.png');
+    background-image: url(../assets/img/fondo.png);
     background-size: 100% 100%;
     font-size: 1rem;
     font-family: "Poppins", sans-serif;
@@ -103,10 +102,6 @@ img {
 .card .card-body {
     padding: 1rem;
     padding-bottom: 0;
-}
-
-.hidden {
-  visibility: hidden;
 }
 
 .title-serie {

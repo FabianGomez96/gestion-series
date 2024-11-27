@@ -12,7 +12,7 @@ function runQuery($conn, $query, $types, $params){
     $stmt = $conn->prepare($query);
     $stmt->bind_param($types, ...$params);
     $stmt->execute();
-
+    
     if (stripos($query, 'SELECT') === 0) {
         $stmt->bind_result($result);
         $stmt->fetch();

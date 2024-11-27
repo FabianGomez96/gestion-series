@@ -58,9 +58,6 @@ function fillSelect(data) {
  */
 function createCards(data) {
 
-    const divInformation = document.querySelector("#informacion");
-    divInformation.innerHTML = "";
-
     const series = data.series;
     if (series.length) {
         const divSeries = document.createElement("div");
@@ -97,10 +94,12 @@ function createCards(data) {
                 </div>
             `
         });
+
         divSeries.innerHTML = cards;
-        divInformation.classList.add("hidden");
+        
+        const divInformation = document.querySelector("#informacion");
+        divInformation.innerHTML = "";
         divInformation.appendChild(divSeries);
-        setTimeout(() => divInformation.classList.remove("hidden"), 300);
 
     } else {
         divInformation.innerHTML = `<p class="no-records">No hay registros en la base de datos</p>`
@@ -132,7 +131,6 @@ function openModal(modal) {
     const scrollPosition = window.scrollY || document.documentElement.scrollTop;
     body.style.cssText = `overflow: hidden; padding-right: ${scrollbarWidth}px;`;
     body.setAttribute('data-scroll-position', scrollPosition);
-    //body.classList.add("modal-open");
 }
 
 /**
@@ -151,7 +149,6 @@ function closeModal(modal) {
             if (modal.id == "modalAgregarTemporadas"){
                 const divSelect = form.querySelector(":first-child");
                 divSelect.style.display = "block";
-
                 const select = form.querySelector("select");
                 select.setAttribute('required', true);
             }
